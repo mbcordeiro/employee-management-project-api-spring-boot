@@ -19,9 +19,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = ApplicationRunner.class)
+@SpringBootTest(webEnvironment =  SpringBootTest.WebEnvironment.MOCK, classes = ApplicationRunner.class)
 @AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-integrationtest.properties")
+@TestPropertySource(
+        locations = "classpath:application-integrationtest.properties")
 public class EmployeeRestControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
@@ -35,7 +36,8 @@ public class EmployeeRestControllerIntegrationTest {
 
         createTestEmployee("bob");
 
-        mvc.perform(get("/api/employees").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/employees")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
